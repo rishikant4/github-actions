@@ -30,9 +30,12 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Build and test with Maven
-      uses: maven-actions/github-action@v1
+    - name: Run Unit Tests and Analyse
+      uses: bcgov-nr/action-test-and-analyse-java@v.0.1.0
       with:
-        args: clean verify
-        java-version: 11
-        maven-version: 3.6.3
+          commands: |
+            ./mvnw test
+          dir: frontend
+          java-cache: maven
+          java-distribution: temurin
+          java-version: "11"
