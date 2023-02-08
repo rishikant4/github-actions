@@ -31,7 +31,7 @@ jobs:
         cache: maven
         
     - name: Run Unit Tests and Analyse
-      uses: bcgov-nr/action-test-and-analyse-java@v.0.1.0
+      uses: bcgov-nr/action-test-and-analyse-java@v1
       with:
           commands: |
             ./mvnw test
