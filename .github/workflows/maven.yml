@@ -29,13 +29,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-        
-    - name: Run Unit Tests and Analyse
-      uses: bcgov-nr/action-test-and-analyse-java@v1
-      with:
-          commands: |
-            ./mvnw test
-          dir: frontend
-          java-cache: maven
-          java-distribution: temurin
-          java-version: "11"
+
+    - name: Build with Maven
+      run: mvn clean install
