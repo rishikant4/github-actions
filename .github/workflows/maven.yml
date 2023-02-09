@@ -1,17 +1,14 @@
-name: 'Terraform'
+name: 'MyWorkflow'
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
 
-env:
-  access_key: ${{secrets.AWS_ACCESS_KEY}}
-  secret_key: ${{secrets.AWS_SECRET_KEY}}
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  build:
+    name: 'build'
     runs-on: ubuntu-latest
     environment: production
 
@@ -32,18 +29,7 @@ jobs:
         java-version: 1.8  
     - name: Build Code
       run: mvn -B package --file pom.xml
-    #- name: Cache SonarCloud packages
-    #  uses: actions/cache@v1
-     # with:
-      #   path: ~/.sonar/cache
-       #  key: ${{ runner.os }}-sonar
-        # restore-keys: ${{ runner.os }}-sonar
-    #- name: Cache Maven packages
-     # uses: actions/cache@v1
-      #with:
-       # path: ~/.m2
-        #key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        #restore-keys: ${{ runner.os }}-m2
+    
     - name: Sonar Scanner
      # uses: SonarSource/sonarcloud-github-action@master
       env:
