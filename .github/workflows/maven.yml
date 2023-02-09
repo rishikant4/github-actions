@@ -33,7 +33,8 @@ jobs:
     - name: Build project with Maven
       run: mvn -B package --file pom.xml
       
-    - name: Build and analyze
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
       env:
-         SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
-      run:  mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
