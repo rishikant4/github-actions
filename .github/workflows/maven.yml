@@ -36,14 +36,9 @@ jobs:
     - name: Build project with Maven
       run: mvn -B package --file pom.xml
       
-    - name: Run SonarQube analysis
-      uses: SonarSource/sonarcloud-github-action@master
-      with:
-        sonar.host.url: https://sonarcloud.io
-        sonar.login: ${SONARCLOUD_TOKEN}
-        sonar.projectKey: rishikant4_github-actions
-        sonar.projectName: github-actions
-        #sonar.projectVersion: <your-project-version>
-        sonar.sources: .
-        sonar.exclusions: "**/target/**"
+    - name: Analyze with SonarCloud
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+    #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
