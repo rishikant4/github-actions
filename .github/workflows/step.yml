@@ -1,0 +1,41 @@
+name: 'Myworkflownew'
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+
+
+    
+jobs:
+  build:
+    name: 'checking-pom'
+    runs-on: ubuntu-latest
+    environment: production
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    # Set Up The Java 
+    - name: Setup JDK 1.8
+      uses: actions/checkout@v3
+      with:
+        java-version: 1.8  
+
+    - name: Build with Maven
+      id: build
+      run: |
+        mvn_output=$(mvn -B -X package --file pom.xml)
+        echo "::group::build log"
+        echo "$mvn_output"
+        echo "::endgroup::"
+        echo "::group::pom.xml contents"
+        cat pom.xml
+        
