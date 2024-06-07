@@ -1,25 +1,38 @@
-name: Build and Analyze
+name: 'MyWorkflow1'
 
 on:
   push:
-    branches: [master]
+    branches: [ "master" ]
+  pull_request:
 
+
+    
 jobs:
   build:
+    name: 'github-actions-CI'
     runs-on: ubuntu-latest
+    environment: production
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
-    - uses: action/checkout@v3
-    - name: set up JDK
-      uses: actions/setup-java@v3
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    # Set Up The Java 
+    - name: Setup JDK 1.8
+      uses: actions/checkout@v3
       with:
-        java-version: '11'
-        distribution: 'adopt'
+        java-version: 1.8  
 
     - name: Build with Maven
       id: build
       run: |
-        mvn_output=$(mvn -X clean insatll)
+        mvn_output=$(mvn -B -X package --file pom.xml)
         echo "::set-output name=build-log::$mvn_output"
 
     - name: Print build log
