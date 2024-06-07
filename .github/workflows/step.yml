@@ -38,4 +38,5 @@ jobs:
         echo "::endgroup::"
         echo "::group::pom.xml contents"
         cat pom.xml
+        echo "::endgroup::"
         
