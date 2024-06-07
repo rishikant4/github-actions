@@ -1,0 +1,31 @@
+name: Build and Analyze
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: action/checkout@v3
+    - name: set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Build with Maven
+      id: build
+      run: |
+        mvn_output=$(mvn -X clean insatll)
+        echo "::set-output name=build-log::$mvn_output"
+
+    - name: Print build log
+      run: |
+        echo "${{steps.build.outputs.build-log}}"
+
+    - name: Print pom.xml
+      run: |
+        cat pom.xml
